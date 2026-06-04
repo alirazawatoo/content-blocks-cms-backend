@@ -20,7 +20,10 @@ module.exports = (config) => {
 
     if (shouldCache(ctx, options)) {
       ctx.set('Cache-Control', cacheControlValue(options));
-      ctx.set('Vary', 'Accept-Encoding, Origin');
+      // Append rather than set: CORS and controllers may already have added to Vary,
+      // and dropping one of their entries lets a CDN serve the wrong variant.
+      ctx.vary('Accept-Encoding');
+      ctx.vary('Origin');
     }
   };
 };
