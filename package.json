@@ -1,0 +1,45 @@
+{
+  "name": "backend-cms",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Strapi CMS for the JOMI code challenge: the Home Page dynamic zone consumed by the Next.js front-end.",
+  "scripts": {
+    "develop": "strapi develop",
+    "start": "strapi start",
+    "build": "strapi build",
+    "strapi": "strapi",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "docker:up": "docker compose up --build -d",
+    "docker:down": "docker compose down -v",
+    "smoke": "bash scripts/smoke.sh"
+  },
+  "devDependencies": {
+    "eslint": "8.16.0",
+    "jest": "29.7.0"
+  },
+  "dependencies": {
+    "@strapi/plugin-graphql": "4.1.8",
+    "@strapi/plugin-i18n": "4.1.8",
+    "@strapi/plugin-users-permissions": "4.1.8",
+    "@strapi/strapi": "4.1.8",
+    "better-sqlite3": "7.4.6",
+    "pg": "8.7.3"
+  },
+  "resolutions": {
+    "node-releases": "2.0.14"
+  },
+  "author": {
+    "name": "A Strapi developer"
+  },
+  "strapi": {
+    "uuid": "3589c3ae-c237-403b-af7d-8ec82e1ee4ce"
+  },
+  "engines": {
+    "node": ">=14.19.1 <=16.x.x",
+    "npm": ">=6.0.0"
+  },
+  "license": "MIT"
+}

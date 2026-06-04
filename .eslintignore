@@ -1,0 +1,7 @@
+.cache
+.tmp
+build
+docs
+project_venv
+**/node_modules/**
+src/admin/*.example.js
