@@ -56,6 +56,7 @@ services:
       ADMIN_JWT_SECRET: ${ADMIN_JWT_SECRET:?set ADMIN_JWT_SECRET in .env}
       API_TOKEN_SALT: ${API_TOKEN_SALT:?set API_TOKEN_SALT in .env}
       JWT_SECRET: ${JWT_SECRET:?set JWT_SECRET in .env}
+      TRANSFER_TOKEN_SALT: ${TRANSFER_TOKEN_SALT:-}
 
       # Seeds the Home Page the challenge asks for, the public read permissions the
       # front-end needs, and the first admin user when SEED_ADMIN_PASSWORD is set.

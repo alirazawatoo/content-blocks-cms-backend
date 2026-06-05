@@ -1,10 +1,9 @@
 # syntax=docker/dockerfile:1
 
-# Strapi 4.1 supports Node 14 and 16 only, so the image pins 16 rather than
-# tracking latest. Debian slim rather than Alpine because sharp and better-sqlite3
+# Strapi 4.26 supports Node 18 to 22; the image pins 22 to match .nvmrc. Debian slim rather than Alpine because sharp and better-sqlite3
 # both publish glibc prebuilds; on musl they are compiled from source at install
 # time, which triples the build and occasionally fails outright.
-ARG NODE_VERSION=16-bullseye-slim
+ARG NODE_VERSION=22-bookworm-slim
 
 # ---------------------------------------------------------------------------
 # deps — every dependency, with the toolchain needed to build native modules
@@ -17,7 +16,7 @@ RUN apt-get update \
   && apt-get install -y --no-install-recommends python3 make g++ ca-certificates \
   && rm -rf /var/lib/apt/lists/*
 
-COPY package.json yarn.lock ./
+COPY package.json yarn.lock .yarnrc ./
 
 RUN yarn install --frozen-lockfile --network-timeout 600000
 
@@ -30,10 +29,10 @@ ENV NODE_ENV=production
 
 COPY . .
 
-RUN yarn build --no-optimization
+RUN yarn build
 
 # ---------------------------------------------------------------------------
-# test — lint and unit tests. Build this target in CI: `docker build --target test .`
+# test — lint and unit tests: `docker build --target test .`
 # ---------------------------------------------------------------------------
 FROM build AS test
 
