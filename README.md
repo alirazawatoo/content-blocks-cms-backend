@@ -1,6 +1,6 @@
 # JOMI CMS challenge — backend
 
-A Strapi 4.1.8 headless CMS that serves one **Home Page** to the Next.js front-end in
+A Strapi 4 (4.26) headless CMS that serves one **Home Page** to the Next.js front-end in
 [`jomi-challenge-frontend`](https://github.com/jomijournal/jomi-challenge-frontend). The
 challenge repository arrived with the content model already built — the brief's own words
 are *"the CMS server has pre-defined types and components"* — so the backend half of the
@@ -10,7 +10,7 @@ with its mockups, in [`docs/CHALLENGE.md`](docs/CHALLENGE.md).
 > **What is this repository's own.** The content model and most of `config/` are
 > `create-strapi-app` output plus the JOMI starter. The work layered on top — the homepage
 > content, a block registry, populate handling, a cache-header middleware, GraphQL limits,
-> a Docker stack, CI and a Jest suite — is listed under
+> a Docker stack and a Jest suite — is listed under
 > [Layered on top of the starter](#layered-on-top-of-the-starter). Nothing outside the brief
 > was invented: widening an interview exercise's scope only makes it harder to review.
 
@@ -44,41 +44,44 @@ has sections, so anything an editor changes in the admin panel survives a restar
 Also captured: [the dynamic zone expanded](docs/screenshots/02-home-page-sections.png),
 [the Content-Type Builder](docs/screenshots/03-content-type-builder.png) and
 [the seeded media library](docs/screenshots/04-media-library.png). Playwright, Chromium,
-1440×900, against a local `yarn develop` on Node 16 and SQLite.
+1440×900, against the Docker Compose stack below (Strapi 4.26.2, Node 22, Postgres).
 
 ## Run it
 
-Strapi 4.1 needs **Node 16 or below** — `better-sqlite3@7.4.6` and `sharp` have no
-prebuilds for anything newer. `.nvmrc` pins 16.20.2, the version CI uses and the only one
-this repository is verified on.
+The quickest path is Docker Compose, which builds the image, starts Postgres and seeds
+everything:
 
 ```bash
-nvm use                  # 16.20.2
+cp .env.example .env
+# fill in APP_KEYS (four comma-separated values), ADMIN_JWT_SECRET, API_TOKEN_SALT,
+# JWT_SECRET and DATABASE_PASSWORD, each from:  openssl rand -base64 32
+# optionally SEED_ADMIN_PASSWORD, to skip the admin registration screen
+docker compose up --build -d     # admin http://localhost:8270/admin
+bash scripts/smoke.sh            # five end-to-end checks against the running stack
+docker compose down -v
+```
+
+Compose refuses to start until those five values are set; nothing secret is checked in.
+With `SEED_ADMIN_PASSWORD` set, the first boot creates an admin as `admin@jomi.local`
+(override with `SEED_ADMIN_EMAIL`); without it the admin panel opens on its registration
+screen. Postgres is published on `localhost:8271` for inspection.
+
+Without Docker, on Node 22 (`.nvmrc`) and SQLite:
+
+```bash
+nvm use
 yarn install
-cp .env.example .env     # then fill in APP_KEYS, ADMIN_JWT_SECRET, API_TOKEN_SALT, JWT_SECRET
+cp .env.example .env     # fill in the four secrets as above
 yarn develop             # http://localhost:1337/admin
 ```
 
 Set `SEED_ON_BOOTSTRAP=true` in that `.env` and the first boot creates the Home Page, its
-media, the public read permissions the front-end needs, and an admin user, so you can skip
-the registration screen. On Apple Silicon `better-sqlite3@7.4.6` predates the darwin-arm64
-prebuilds and compiles during install, which needs `xcode-select --install`.
+media, the public read permissions the front-end needs and, with `SEED_ADMIN_PASSWORD`,
+an admin user.
 
-Or the whole stack, Postgres included and already seeded:
-
-```bash
-docker compose up --build        # admin http://localhost:8270/admin
-docker compose down -v
-```
-
-> The compose file and Dockerfile are maintained and `docker compose config` parses clean,
-> but **the image has not been built or booted** — every output on this page came from a
-> local Node 16 + SQLite run instead. Treat the Docker path as reviewed, not smoke-tested.
-
-It reads the four secrets and `DATABASE_PASSWORD` from `.env` and refuses to start
-without them. Set `SEED_ADMIN_PASSWORD` there too to have the admin user (default
-`admin@jomi.local`) created on first boot; otherwise the admin panel shows its
-registration screen. Postgres is on `localhost:8271`.
+`.yarnrc` turns off yarn's engine check. Strapi 4.26 supports Node 22, but one of its
+build-tool dependencies, `@strapi/pack-up` (used only to build Strapi plugins), still
+declares `node <=20` and would otherwise stop `yarn install`.
 
 Point the front-end at it with three variables in *its* `.env`:
 
@@ -89,7 +92,7 @@ STRAPI_CMS_URL=http://localhost:8270     # so next/image may load the seeded med
 ```
 
 `.env.example` is the annotated list of every variable this CMS reads, with defaults. The
-four secrets are the only required ones — Strapi will not start without `APP_KEYS`, and the
+four secrets are the only required ones for `yarn develop` — Strapi will not start without `APP_KEYS`, and the
 admin panel will not issue a session without `ADMIN_JWT_SECRET`. Generate each with
 `openssl rand -base64 32`; none has a fallback in `config/`.
 
@@ -154,11 +157,13 @@ The two repositories agree today.
   to every caller. The controller defaults the registry-derived populate tree, and leaves
   an explicit `?populate=` alone so a caller narrowing the response still gets the cheap
   query it asked for. It also coerces the string booleans a query string produces:
-  `?populate[sections]=true` arrives as `{ sections: 'true' }`, and Strapi 4.1's
-  `convertNestedPopulate` throws on anything that is not a boolean or an object — an
-  unexplained 500 on a public endpoint. `normalizePopulate` in
-  [`src/lib/populate.js`](src/lib/populate.js) handles it. GraphQL is unaffected: it
-  derives populate from the selection set.
+  `?populate[sections]=true` arrives as `{ sections: 'true' }`, which Strapi 4.1's
+  `convertNestedPopulate` rejected with a 500. `normalizePopulate` in
+  [`src/lib/populate.js`](src/lib/populate.js) turns those strings into booleans. Before
+  any of that, the query goes through Strapi's own `validateQuery` and `sanitizeQuery`,
+  exactly as in the core controller, so filtering or populating on private attributes
+  (`?filters[createdBy][password]...`) is a 400, not a data leak. GraphQL is unaffected:
+  it derives populate from the selection set.
 - **GraphQL depth and amount limits** ([`config/plugins.js`](config/plugins.js)). The
   endpoint is public and the schema is cyclic through media relations, so without a depth
   limit one hand-written query can nest until the process dies. Depth is capped at 12
@@ -189,13 +194,14 @@ The two repositories agree today.
 - **Read endpoints for `Content Page`**, which had a schema but no controller, routes or
   service, so it was never reachable over REST. It has no relations and no dynamic zone,
   so the generated CRUD is right and those three files are plain factory calls.
-- **`Dockerfile`, `docker-compose.yml`, `.github/workflows/ci.yml`, `jest.config.js`,
-  `scripts/smoke.sh`** and the Jest suite below.
+- **`Dockerfile`, `docker-compose.yml`, `jest.config.js`, `scripts/smoke.sh`** and the
+  Jest suite below.
 
-Three files that came with the starter were removed. `.github/workflows/node.js.yml` and
-`ecosystem.config.js` were JOMI's own deploy pipeline — a `self-hosted` runner that copied
-`/srv/apps/app.env` over `.env` and ran `pm2 restart`. PM2 was never a dependency, the
-runner does not exist for a fork, and it published the shape of someone else's server.
+Three files that came with the starter were removed. Two were JOMI's own deploy setup
+(`ecosystem.config.js` and a job for their self-hosted server that copied
+`/srv/apps/app.env` over `.env` and ran `pm2 restart`). PM2 was never a dependency, the
+server does not exist for a fork, and the files published the shape of someone else's
+infrastructure.
 `src/components/hero/hero-section.json` was a component with zero attributes that nothing
 referenced.
 
@@ -203,49 +209,70 @@ referenced.
 
 ```
 $ yarn test
-Test Suites: 7 passed, 7 total
-Tests:       118 passed, 118 total
-Time:        0.53 s
+Test Suites: 9 passed, 9 total
+Tests:       126 passed, 126 total
 ```
 
-`yarn lint` is clean. No suite boots Strapi — that means a database, a full plugin load
-and multiple seconds per suite, mostly to test Strapi rather than this code. The unit
-suite instead covers everything in `src/lib`, `src/seed/content.js` and `config/`: the
-populate tree, the cache policy's refusals, the seed composition, the config values and
-environment parsing. The boot path is covered by [`scripts/smoke.sh`](scripts/smoke.sh),
-which drives a *running* instance through five checks — `/_health`, the 2 / 1 / 1 dynamic
-zone with media populated, the `Cache-Control` header, the front-end's own GraphQL
-document, and an over-deep query being rejected. CI runs it against a real container;
-locally, point `BASE_URL` at your `yarn develop`.
+`yarn lint` is clean. No suite boots Strapi; that would mean a database, a full plugin
+load and several seconds per suite, mostly testing Strapi rather than this code. The unit
+suite covers `src/lib`, `src/seed`, the cache middleware, the Home Page controller (with
+`@strapi/strapi` mocked) and `config/`: the populate tree, the cache policy's refusals,
+query sanitization order, the seed composition, the config values and environment
+parsing.
+
+The boot path is covered by [`scripts/smoke.sh`](scripts/smoke.sh), which drives a
+*running* instance through five checks: `/_health`, the 2 / 1 / 1 dynamic zone with media
+populated, the `Cache-Control` header, the front-end's own GraphQL document, and an
+over-deep query being rejected. It defaults to the Compose stack; point `BASE_URL` at a
+`yarn develop` instead:
 
 ```bash
 BASE_URL=http://localhost:1337 bash scripts/smoke.sh
 ```
 
 Its full output, and the complete REST and GraphQL request/response pairs behind the table
-above, are in [`docs/api-examples.md`](docs/api-examples.md).
+above, are in [`docs/api-examples.md`](docs/api-examples.md), captured from the Compose
+stack.
+
+```mermaid
+flowchart LR
+    browser[Next.js front-end] -->|GET /api/home-page| cache[global::http-cache]
+    browser -->|POST /graphql| gql[GraphQL plugin<br/>depth 12, amount 100]
+    cache --> ctrl[home-page controller<br/>validate + sanitize query]
+    ctrl --> svc[findRendered<br/>default populate from block registry]
+    svc --> db[(SQLite or Postgres)]
+    gql --> db
+```
 
 ## Known gaps
 
-- **Nothing here integration-tests a booted Strapi**, and `scripts/smoke.sh` needs an
-  instance you started yourself. **The Docker image is unbuilt**, as *Run it* says above.
-- **Node 16 only, and it takes a pin to stay that way.** `package.json` pins
-  `node-releases` to 2.0.14 under `resolutions`, because later versions of that transitive
-  dependency declare `engines.node >= 18` and make `yarn install` fail outright on the
-  runtime Strapi 4.1.8 requires. Node 16 is end-of-life; the real fix is a Strapi upgrade,
-  which would rewrite more of this repository than the challenge contains.
+- **Strapi 4 is the end of the line for this code.** 4.26.2 is the last v4 release.
+  `yarn audit` still reports one critical advisory against `@strapi/strapi` itself
+  ([GHSA-rjg2-95x7-8qmx](https://github.com/advisories/GHSA-rjg2-95x7-8qmx), sensitive
+  data leaking through relational filtering), fixed only in 5.37.0, plus high-severity
+  findings in transitive packages Strapi pins (sharp 0.32, graphql-upload's `dicer`,
+  `@koa/cors` 3, markdown-it, webpack-dev-middleware). The custom Home Page endpoint
+  sanitizes its query and the Content Page endpoints use the core controllers, but the
+  real fix is a Strapi 5 migration. That changes the REST and GraphQL response shape
+  (no more `data.attributes`) and therefore needs a matching change in
+  `jomi-challenge-frontend`.
+- **Patched transitive versions are forced with `resolutions`** in `package.json`
+  (`@casl/ability`, `axios`, `tar`, and `minimatch`, `ws` and `vite` under the Strapi
+  packages that pin them). Remove them when moving off Strapi 4.
+- **Nothing in `yarn test` boots Strapi**; the booted behaviour is covered by
+  `scripts/smoke.sh` against a running instance.
 - **`CORS_ORIGIN` defaults to `*`** so a fresh clone works. That is a development default.
 - **The seeder can create a super admin from environment variables.** It refuses once any
   admin exists, but do not carry `SEED_ON_BOOTSTRAP=true` into a real deployment.
-- **The carousel component carries no presentation settings** — no interval, no slide
+- **The carousel component carries no presentation settings**: no interval, no slide
   count, no autoplay. It is a repeatable list of Two-Column Blocks and nothing more, so
-  presentation is entirely the front-end's decision and an editor cannot influence it here.
-- **No i18n content.** The plugin ships with the Strapi template but no locale beyond the
-  default is configured, and the seed content is English only.
+  presentation is entirely the front-end's decision.
+- **No i18n content.** The plugin is installed but no locale beyond the default is
+  configured, and the seed content is English only.
 - **Draft/publish is on** for both content types, so anything created through the API
   without `publishedAt` is invisible to the public endpoints. The seeder sets it.
 
 ## Licence
 
-MIT, per `package.json`. `docs/CHALLENGE.md` reproduces JOMI's brief and mockups verbatim
-and those remain theirs.
+MIT, see [`LICENSE`](LICENSE). `docs/CHALLENGE.md` reproduces JOMI's brief and mockups
+verbatim and those remain theirs.

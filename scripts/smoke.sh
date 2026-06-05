@@ -5,8 +5,8 @@
 #
 #   docker compose up --build -d && bash scripts/smoke.sh
 #
-# Exits non-zero on the first failure, so it is usable as a CI gate. The output of
-# this script is what the README's "Captured output" section shows.
+# Exits non-zero on the first failure, so it can gate a deploy. The output of
+# this script is summarised in docs/api-examples.md.
 
 set -euo pipefail
 

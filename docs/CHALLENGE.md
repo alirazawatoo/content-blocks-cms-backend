@@ -2,7 +2,7 @@
 
 This is the challenge README as it was handed out, kept verbatim so the delivered work
 can be checked against what was actually asked. The current state of each item is
-tracked in the main [README](../README.md#challenge-status--what-was-asked-what-is-delivered).
+tracked in the main [README](../README.md#the-deliverable).
 
 Only two things differ from the original text: the setup instructions said
 `cp env.example .env` where the file is `.env.example`, and the four required secrets
