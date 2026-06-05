@@ -1,11 +1,9 @@
 # Captured API output
 
-Everything below is verbatim output from a running instance: Strapi 4.1.8 on Node
-16.20.2, SQLite, seeded by `SEED_ON_BOOTSTRAP=true`, listening on port 8270. Nothing
-here is hand-written — regenerate it by booting the CMS and re-running the commands.
-
-The one edit is to the depth-limit response, where the development-mode stack trace has
-been dropped and only the error kept.
+Everything below is verbatim output from the Docker Compose stack: Strapi 4.26.2 on
+Node 22, Postgres, `NODE_ENV=production`, seeded by `SEED_ON_BOOTSTRAP=true` and published
+on port 8270. Nothing here is hand-written; regenerate it by bringing the stack up and
+re-running the commands. Timestamps and upload hashes change on every fresh boot.
 
 ---
 
@@ -27,9 +25,9 @@ $ curl -s http://localhost:8270/api/home-page | python3 -m json.tool
     "data": {
         "id": 1,
         "attributes": {
-            "createdAt": "2026-09-23T14:37:37.581Z",
-            "updatedAt": "2026-09-23T14:37:37.581Z",
-            "publishedAt": "2026-09-23T14:37:37.568Z",
+            "createdAt": "2026-11-09T11:59:12.828Z",
+            "updatedAt": "2026-11-09T11:59:12.828Z",
+            "publishedAt": "2026-11-09T11:59:12.804Z",
             "sections": [
                 {
                     "id": 1,
@@ -56,50 +54,53 @@ $ curl -s http://localhost:8270/api/home-page | python3 -m json.tool
                                 "width": 900,
                                 "height": 600,
                                 "formats": {
-                                    "thumbnail": {
-                                        "name": "thumbnail_operating-room.png",
-                                        "hash": "thumbnail_operating_room_aaf3f8a8c7",
-                                        "ext": ".png",
-                                        "mime": "image/png",
-                                        "path": null,
-                                        "width": 234,
-                                        "height": 156,
-                                        "size": 42.44,
-                                        "url": "/uploads/thumbnail_operating_room_aaf3f8a8c7.png"
-                                    },
-                                    "medium": {
-                                        "name": "medium_operating-room.png",
-                                        "hash": "medium_operating_room_aaf3f8a8c7",
-                                        "ext": ".png",
-                                        "mime": "image/png",
-                                        "path": null,
-                                        "width": 750,
-                                        "height": 500,
-                                        "size": 440.33,
-                                        "url": "/uploads/medium_operating_room_aaf3f8a8c7.png"
-                                    },
                                     "small": {
-                                        "name": "small_operating-room.png",
-                                        "hash": "small_operating_room_aaf3f8a8c7",
                                         "ext": ".png",
+                                        "url": "/uploads/small_operating_room_c8a9911fc8.png",
+                                        "hash": "small_operating_room_c8a9911fc8",
                                         "mime": "image/png",
+                                        "name": "small_operating-room.png",
                                         "path": null,
+                                        "size": 182.6,
                                         "width": 500,
                                         "height": 333,
-                                        "size": 182.06,
-                                        "url": "/uploads/small_operating_room_aaf3f8a8c7.png"
+                                        "sizeInBytes": 182604
+                                    },
+                                    "medium": {
+                                        "ext": ".png",
+                                        "url": "/uploads/medium_operating_room_c8a9911fc8.png",
+                                        "hash": "medium_operating_room_c8a9911fc8",
+                                        "mime": "image/png",
+                                        "name": "medium_operating-room.png",
+                                        "path": null,
+                                        "size": 439.67,
+                                        "width": 750,
+                                        "height": 500,
+                                        "sizeInBytes": 439669
+                                    },
+                                    "thumbnail": {
+                                        "ext": ".png",
+                                        "url": "/uploads/thumbnail_operating_room_c8a9911fc8.png",
+                                        "hash": "thumbnail_operating_room_c8a9911fc8",
+                                        "mime": "image/png",
+                                        "name": "thumbnail_operating-room.png",
+                                        "path": null,
+                                        "size": 42.16,
+                                        "width": 234,
+                                        "height": 156,
+                                        "sizeInBytes": 42159
                                     }
                                 },
-                                "hash": "operating_room_aaf3f8a8c7",
+                                "hash": "operating_room_c8a9911fc8",
                                 "ext": ".png",
                                 "mime": "image/png",
-                                "size": 102.59,
-                                "url": "/uploads/operating_room_aaf3f8a8c7.png",
+                                "size": 102.42,
+                                "url": "/uploads/operating_room_c8a9911fc8.png",
                                 "previewUrl": null,
                                 "provider": "local",
                                 "provider_metadata": null,
-                                "createdAt": "2026-09-23T14:37:37.093Z",
-                                "updatedAt": "2026-09-23T14:37:37.093Z"
+                                "createdAt": "2026-11-09T11:59:12.143Z",
+                                "updatedAt": "2026-11-09T11:59:12.143Z"
                             }
                         }
                     }
@@ -122,50 +123,53 @@ $ curl -s http://localhost:8270/api/home-page | python3 -m json.tool
                                 "width": 900,
                                 "height": 600,
                                 "formats": {
-                                    "thumbnail": {
-                                        "name": "thumbnail_peer-review.png",
-                                        "hash": "thumbnail_peer_review_438150eeca",
-                                        "ext": ".png",
-                                        "mime": "image/png",
-                                        "path": null,
-                                        "width": 234,
-                                        "height": 156,
-                                        "size": 38.09,
-                                        "url": "/uploads/thumbnail_peer_review_438150eeca.png"
-                                    },
-                                    "medium": {
-                                        "name": "medium_peer-review.png",
-                                        "hash": "medium_peer_review_438150eeca",
-                                        "ext": ".png",
-                                        "mime": "image/png",
-                                        "path": null,
-                                        "width": 750,
-                                        "height": 500,
-                                        "size": 421.82,
-                                        "url": "/uploads/medium_peer_review_438150eeca.png"
-                                    },
                                     "small": {
-                                        "name": "small_peer-review.png",
-                                        "hash": "small_peer_review_438150eeca",
                                         "ext": ".png",
+                                        "url": "/uploads/small_peer_review_228d5686c1.png",
+                                        "hash": "small_peer_review_228d5686c1",
                                         "mime": "image/png",
+                                        "name": "small_peer-review.png",
                                         "path": null,
+                                        "size": 171.1,
                                         "width": 500,
                                         "height": 333,
-                                        "size": 170.55,
-                                        "url": "/uploads/small_peer_review_438150eeca.png"
+                                        "sizeInBytes": 171099
+                                    },
+                                    "medium": {
+                                        "ext": ".png",
+                                        "url": "/uploads/medium_peer_review_228d5686c1.png",
+                                        "hash": "medium_peer_review_228d5686c1",
+                                        "mime": "image/png",
+                                        "name": "medium_peer-review.png",
+                                        "path": null,
+                                        "size": 421.24,
+                                        "width": 750,
+                                        "height": 500,
+                                        "sizeInBytes": 421244
+                                    },
+                                    "thumbnail": {
+                                        "ext": ".png",
+                                        "url": "/uploads/thumbnail_peer_review_228d5686c1.png",
+                                        "hash": "thumbnail_peer_review_228d5686c1",
+                                        "mime": "image/png",
+                                        "name": "thumbnail_peer-review.png",
+                                        "path": null,
+                                        "size": 38.07,
+                                        "width": 234,
+                                        "height": 156,
+                                        "sizeInBytes": 38071
                                     }
                                 },
-                                "hash": "peer_review_438150eeca",
+                                "hash": "peer_review_228d5686c1",
                                 "ext": ".png",
                                 "mime": "image/png",
-                                "size": 98.96,
-                                "url": "/uploads/peer_review_438150eeca.png",
+                                "size": 98.94,
+                                "url": "/uploads/peer_review_228d5686c1.png",
                                 "previewUrl": null,
                                 "provider": "local",
                                 "provider_metadata": null,
-                                "createdAt": "2026-09-23T14:37:37.210Z",
-                                "updatedAt": "2026-09-23T14:37:37.210Z"
+                                "createdAt": "2026-11-09T11:59:12.302Z",
+                                "updatedAt": "2026-11-09T11:59:12.302Z"
                             }
                         }
                     }
@@ -191,50 +195,53 @@ $ curl -s http://localhost:8270/api/home-page | python3 -m json.tool
                                         "width": 900,
                                         "height": 600,
                                         "formats": {
-                                            "thumbnail": {
-                                                "name": "thumbnail_laparoscopy.png",
-                                                "hash": "thumbnail_laparoscopy_a06c9167e3",
-                                                "ext": ".png",
-                                                "mime": "image/png",
-                                                "path": null,
-                                                "width": 234,
-                                                "height": 156,
-                                                "size": 41.09,
-                                                "url": "/uploads/thumbnail_laparoscopy_a06c9167e3.png"
-                                            },
-                                            "medium": {
-                                                "name": "medium_laparoscopy.png",
-                                                "hash": "medium_laparoscopy_a06c9167e3",
-                                                "ext": ".png",
-                                                "mime": "image/png",
-                                                "path": null,
-                                                "width": 750,
-                                                "height": 500,
-                                                "size": 445.13,
-                                                "url": "/uploads/medium_laparoscopy_a06c9167e3.png"
-                                            },
                                             "small": {
-                                                "name": "small_laparoscopy.png",
-                                                "hash": "small_laparoscopy_a06c9167e3",
                                                 "ext": ".png",
+                                                "url": "/uploads/small_laparoscopy_ee95bff666.png",
+                                                "hash": "small_laparoscopy_ee95bff666",
                                                 "mime": "image/png",
+                                                "name": "small_laparoscopy.png",
                                                 "path": null,
+                                                "size": 184.88,
                                                 "width": 500,
                                                 "height": 333,
-                                                "size": 184.11,
-                                                "url": "/uploads/small_laparoscopy_a06c9167e3.png"
+                                                "sizeInBytes": 184877
+                                            },
+                                            "medium": {
+                                                "ext": ".png",
+                                                "url": "/uploads/medium_laparoscopy_ee95bff666.png",
+                                                "hash": "medium_laparoscopy_ee95bff666",
+                                                "mime": "image/png",
+                                                "name": "medium_laparoscopy.png",
+                                                "path": null,
+                                                "size": 445.23,
+                                                "width": 750,
+                                                "height": 500,
+                                                "sizeInBytes": 445229
+                                            },
+                                            "thumbnail": {
+                                                "ext": ".png",
+                                                "url": "/uploads/thumbnail_laparoscopy_ee95bff666.png",
+                                                "hash": "thumbnail_laparoscopy_ee95bff666",
+                                                "mime": "image/png",
+                                                "name": "thumbnail_laparoscopy.png",
+                                                "path": null,
+                                                "size": 41.13,
+                                                "width": 234,
+                                                "height": 156,
+                                                "sizeInBytes": 41125
                                             }
                                         },
-                                        "hash": "laparoscopy_a06c9167e3",
+                                        "hash": "laparoscopy_ee95bff666",
                                         "ext": ".png",
                                         "mime": "image/png",
-                                        "size": 99.33,
-                                        "url": "/uploads/laparoscopy_a06c9167e3.png",
+                                        "size": 99.38,
+                                        "url": "/uploads/laparoscopy_ee95bff666.png",
                                         "previewUrl": null,
                                         "provider": "local",
                                         "provider_metadata": null,
-                                        "createdAt": "2026-09-23T14:37:37.324Z",
-                                        "updatedAt": "2026-09-23T14:37:37.324Z"
+                                        "createdAt": "2026-11-09T11:59:12.462Z",
+                                        "updatedAt": "2026-11-09T11:59:12.462Z"
                                     }
                                 }
                             }
@@ -256,50 +263,53 @@ $ curl -s http://localhost:8270/api/home-page | python3 -m json.tool
                                         "width": 900,
                                         "height": 600,
                                         "formats": {
-                                            "thumbnail": {
-                                                "name": "thumbnail_orthopedics.png",
-                                                "hash": "thumbnail_orthopedics_cbe5aec8f4",
-                                                "ext": ".png",
-                                                "mime": "image/png",
-                                                "path": null,
-                                                "width": 234,
-                                                "height": 156,
-                                                "size": 40.94,
-                                                "url": "/uploads/thumbnail_orthopedics_cbe5aec8f4.png"
-                                            },
-                                            "medium": {
-                                                "name": "medium_orthopedics.png",
-                                                "hash": "medium_orthopedics_cbe5aec8f4",
-                                                "ext": ".png",
-                                                "mime": "image/png",
-                                                "path": null,
-                                                "width": 750,
-                                                "height": 500,
-                                                "size": 442.25,
-                                                "url": "/uploads/medium_orthopedics_cbe5aec8f4.png"
-                                            },
                                             "small": {
-                                                "name": "small_orthopedics.png",
-                                                "hash": "small_orthopedics_cbe5aec8f4",
                                                 "ext": ".png",
+                                                "url": "/uploads/small_orthopedics_6fcafa5932.png",
+                                                "hash": "small_orthopedics_6fcafa5932",
                                                 "mime": "image/png",
+                                                "name": "small_orthopedics.png",
                                                 "path": null,
+                                                "size": 183.35,
                                                 "width": 500,
                                                 "height": 333,
-                                                "size": 182.55,
-                                                "url": "/uploads/small_orthopedics_cbe5aec8f4.png"
+                                                "sizeInBytes": 183353
+                                            },
+                                            "medium": {
+                                                "ext": ".png",
+                                                "url": "/uploads/medium_orthopedics_6fcafa5932.png",
+                                                "hash": "medium_orthopedics_6fcafa5932",
+                                                "mime": "image/png",
+                                                "name": "medium_orthopedics.png",
+                                                "path": null,
+                                                "size": 442.29,
+                                                "width": 750,
+                                                "height": 500,
+                                                "sizeInBytes": 442292
+                                            },
+                                            "thumbnail": {
+                                                "ext": ".png",
+                                                "url": "/uploads/thumbnail_orthopedics_6fcafa5932.png",
+                                                "hash": "thumbnail_orthopedics_6fcafa5932",
+                                                "mime": "image/png",
+                                                "name": "thumbnail_orthopedics.png",
+                                                "path": null,
+                                                "size": 40.75,
+                                                "width": 234,
+                                                "height": 156,
+                                                "sizeInBytes": 40747
                                             }
                                         },
-                                        "hash": "orthopedics_cbe5aec8f4",
+                                        "hash": "orthopedics_6fcafa5932",
                                         "ext": ".png",
                                         "mime": "image/png",
-                                        "size": 98.92,
-                                        "url": "/uploads/orthopedics_cbe5aec8f4.png",
+                                        "size": 98.86,
+                                        "url": "/uploads/orthopedics_6fcafa5932.png",
                                         "previewUrl": null,
                                         "provider": "local",
                                         "provider_metadata": null,
-                                        "createdAt": "2026-09-23T14:37:37.444Z",
-                                        "updatedAt": "2026-09-23T14:37:37.444Z"
+                                        "createdAt": "2026-11-09T11:59:12.629Z",
+                                        "updatedAt": "2026-11-09T11:59:12.629Z"
                                     }
                                 }
                             }
@@ -321,50 +331,53 @@ $ curl -s http://localhost:8270/api/home-page | python3 -m json.tool
                                         "width": 900,
                                         "height": 600,
                                         "formats": {
-                                            "thumbnail": {
-                                                "name": "thumbnail_teaching.png",
-                                                "hash": "thumbnail_teaching_53757a63aa",
-                                                "ext": ".png",
-                                                "mime": "image/png",
-                                                "path": null,
-                                                "width": 234,
-                                                "height": 156,
-                                                "size": 42.59,
-                                                "url": "/uploads/thumbnail_teaching_53757a63aa.png"
-                                            },
-                                            "medium": {
-                                                "name": "medium_teaching.png",
-                                                "hash": "medium_teaching_53757a63aa",
-                                                "ext": ".png",
-                                                "mime": "image/png",
-                                                "path": null,
-                                                "width": 750,
-                                                "height": 500,
-                                                "size": 470,
-                                                "url": "/uploads/medium_teaching_53757a63aa.png"
-                                            },
                                             "small": {
-                                                "name": "small_teaching.png",
-                                                "hash": "small_teaching_53757a63aa",
                                                 "ext": ".png",
+                                                "url": "/uploads/small_teaching_dc8acd487d.png",
+                                                "hash": "small_teaching_dc8acd487d",
                                                 "mime": "image/png",
+                                                "name": "small_teaching.png",
                                                 "path": null,
+                                                "size": 192.08,
                                                 "width": 500,
                                                 "height": 333,
-                                                "size": 191.71,
-                                                "url": "/uploads/small_teaching_53757a63aa.png"
+                                                "sizeInBytes": 192082
+                                            },
+                                            "medium": {
+                                                "ext": ".png",
+                                                "url": "/uploads/medium_teaching_dc8acd487d.png",
+                                                "hash": "medium_teaching_dc8acd487d",
+                                                "mime": "image/png",
+                                                "name": "medium_teaching.png",
+                                                "path": null,
+                                                "size": 470.34,
+                                                "width": 750,
+                                                "height": 500,
+                                                "sizeInBytes": 470339
+                                            },
+                                            "thumbnail": {
+                                                "ext": ".png",
+                                                "url": "/uploads/thumbnail_teaching_dc8acd487d.png",
+                                                "hash": "thumbnail_teaching_dc8acd487d",
+                                                "mime": "image/png",
+                                                "name": "thumbnail_teaching.png",
+                                                "path": null,
+                                                "size": 42.67,
+                                                "width": 234,
+                                                "height": 156,
+                                                "sizeInBytes": 42670
                                             }
                                         },
-                                        "hash": "teaching_53757a63aa",
+                                        "hash": "teaching_dc8acd487d",
                                         "ext": ".png",
                                         "mime": "image/png",
-                                        "size": 103.49,
-                                        "url": "/uploads/teaching_53757a63aa.png",
+                                        "size": 103.67,
+                                        "url": "/uploads/teaching_dc8acd487d.png",
                                         "previewUrl": null,
                                         "provider": "local",
                                         "provider_metadata": null,
-                                        "createdAt": "2026-09-23T14:37:37.566Z",
-                                        "updatedAt": "2026-09-23T14:37:37.566Z"
+                                        "createdAt": "2026-11-09T11:59:12.798Z",
+                                        "updatedAt": "2026-11-09T11:59:12.798Z"
                                     }
                                 }
                             }
@@ -380,27 +393,29 @@ $ curl -s http://localhost:8270/api/home-page | python3 -m json.tool
 
 ### Response headers
 
-`global::http-cache` marks anonymous content reads as publicly cacheable.
+`global::http-cache` marks anonymous content reads as publicly cacheable. This request
+was sent with `Origin: http://localhost:3000`; the cache middleware appends to the
+`Vary` header CORS already set rather than replacing it.
 
 ```http
 HTTP/1.1 200 OK
-Content-Security-Policy: connect-src 'self' https:;img-src 'self' data: blob: https://dl.airtable.com;media-src 'self' data: blob:;default-src 'self';base-uri 'self';block-all-mixed-content;font-src 'self' https: data:;frame-ancestors 'self';object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline'
-X-DNS-Prefetch-Control: off
-Expect-CT: max-age=0
-X-Frame-Options: SAMEORIGIN
-Strict-Transport-Security: max-age=31536000; includeSubDomains
-X-Download-Options: noopen
-X-Content-Type-Options: nosniff
-X-Permitted-Cross-Domain-Policies: none
+Content-Security-Policy: connect-src 'self' https:;img-src 'self' data: blob: https://market-assets.strapi.io;media-src 'self' data: blob:;default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline'
 Referrer-Policy: no-referrer
-Vary: Accept-Encoding, Origin
+Strict-Transport-Security: max-age=31536000; includeSubDomains
+X-Content-Type-Options: nosniff
+X-DNS-Prefetch-Control: off
+X-Download-Options: noopen
+X-Frame-Options: SAMEORIGIN
+X-Permitted-Cross-Domain-Policies: none
+Vary: Origin, Accept-Encoding
+Access-Control-Allow-Origin: http://localhost:3000
+Access-Control-Allow-Credentials: true
 Content-Type: application/json; charset=utf-8
 X-Powered-By: Strapi <strapi.io>
 Cache-Control: public, max-age=60, stale-while-revalidate=600
-Content-Length: 8008
-Date: Wed, 23 Sep 2026 14:49:47 GMT
-Connection: keep-alive
-Keep-Alive: timeout=5
+Content-Length: 8319
+Date: Mon, 09 Nov 2026 12:00:34 GMT
+Connection: close
 ```
 
 ### An explicit `?populate=` is left alone
@@ -417,9 +432,9 @@ $ curl -s 'http://localhost:8270/api/home-page?populate[sections]=true' | python
     "data": {
         "id": 1,
         "attributes": {
-            "createdAt": "2026-09-23T14:37:37.581Z",
-            "updatedAt": "2026-09-23T14:37:37.581Z",
-            "publishedAt": "2026-09-23T14:37:37.568Z",
+            "createdAt": "2026-11-09T11:59:12.828Z",
+            "updatedAt": "2026-11-09T11:59:12.828Z",
+            "publishedAt": "2026-11-09T11:59:12.804Z",
             "sections": [
                 {
                     "id": 1,
@@ -548,7 +563,7 @@ query HomePage {
             {
               "id": "1",
               "TitleText": "Filmed in theatre, narrated by the operating surgeon",
-              "Description": "Every article on JOMI is a full-length operation recorded from the surgeon’s point of view, with the surgeon narrating the decisions as they are made — why this plane, why this instrument, what to do when the anatomy is not what the textbook promised.",
+              "Description": "Every article on JOMI is a full-length operation recorded from the surgeon\u2019s point of view, with the surgeon narrating the decisions as they are made \u2014 why this plane, why this instrument, what to do when the anatomy is not what the textbook promised.",
               "ButtonText": "Watch a sample operation",
               "ButtonUrl": "/library/laparoscopic-cholecystectomy",
               "ImagePosition": "Right",
@@ -556,7 +571,7 @@ query HomePage {
                 "data": {
                   "id": "1",
                   "attributes": {
-                    "url": "/uploads/operating_room_aaf3f8a8c7.png",
+                    "url": "/uploads/operating_room_c8a9911fc8.png",
                     "previewUrl": null,
                     "alternativeText": "Surgeons operating under theatre lights",
                     "width": 900,
@@ -576,7 +591,7 @@ query HomePage {
                 "data": {
                   "id": "2",
                   "attributes": {
-                    "url": "/uploads/peer_review_438150eeca.png",
+                    "url": "/uploads/peer_review_228d5686c1.png",
                     "previewUrl": null,
                     "alternativeText": "A reviewer annotating a surgical video timeline",
                     "width": 900,
@@ -599,7 +614,7 @@ query HomePage {
                     "data": {
                       "id": "3",
                       "attributes": {
-                        "url": "/uploads/laparoscopy_a06c9167e3.png",
+                        "url": "/uploads/laparoscopy_ee95bff666.png",
                         "previewUrl": null,
                         "alternativeText": "Laparoscopic instruments inside the abdominal cavity",
                         "width": 900,
@@ -619,7 +634,7 @@ query HomePage {
                     "data": {
                       "id": "4",
                       "attributes": {
-                        "url": "/uploads/orthopedics_cbe5aec8f4.png",
+                        "url": "/uploads/orthopedics_6fcafa5932.png",
                         "previewUrl": null,
                         "alternativeText": "An orthopaedic surgeon preparing a knee arthroscopy",
                         "width": 900,
@@ -639,7 +654,7 @@ query HomePage {
                     "data": {
                       "id": "5",
                       "attributes": {
-                        "url": "/uploads/teaching_53757a63aa.png",
+                        "url": "/uploads/teaching_dc8acd487d.png",
                         "previewUrl": null,
                         "alternativeText": "Residents reviewing an operation on a wall display",
                         "width": 900,
@@ -677,9 +692,9 @@ in its output shows.
                 "slug": "about",
                 "title": "About JOMI",
                 "content": "## About\n\nJOMI is a peer-reviewed journal of surgical video. Articles are full-length operations, filmed in theatre and narrated by the operating surgeon.\n",
-                "createdAt": "2026-09-23T14:37:37.587Z",
-                "updatedAt": "2026-09-23T14:37:37.587Z",
-                "publishedAt": "2026-09-23T14:37:37.587Z"
+                "createdAt": "2026-11-09T11:59:12.857Z",
+                "updatedAt": "2026-11-09T11:59:12.857Z",
+                "publishedAt": "2026-11-09T11:59:12.854Z"
             }
         },
         {
@@ -688,9 +703,9 @@ in its output shows.
                 "slug": "peer-review",
                 "title": "How peer review works",
                 "content": "## Peer review\n\nReviewers annotate the video timeline directly. A submission is published once two reviewers in the same speciality sign off.\n",
-                "createdAt": "2026-09-23T14:37:37.589Z",
-                "updatedAt": "2026-09-23T14:37:37.589Z",
-                "publishedAt": "2026-09-23T14:37:37.588Z"
+                "createdAt": "2026-11-09T11:59:12.863Z",
+                "updatedAt": "2026-11-09T11:59:12.863Z",
+                "publishedAt": "2026-11-09T11:59:12.861Z"
             }
         },
         {
@@ -699,9 +714,9 @@ in its output shows.
                 "slug": "institutions",
                 "title": "For institutions",
                 "content": "## For institutions\n\nInstitutional subscriptions cover every resident and attending on a single sign-on, with usage reporting by department.\n",
-                "createdAt": "2026-09-23T14:37:37.590Z",
-                "updatedAt": "2026-09-23T14:37:37.590Z",
-                "publishedAt": "2026-09-23T14:37:37.590Z"
+                "createdAt": "2026-11-09T11:59:12.867Z",
+                "updatedAt": "2026-11-09T11:59:12.867Z",
+                "publishedAt": "2026-11-09T11:59:12.866Z"
             }
         }
     ],
@@ -733,6 +748,12 @@ $ curl -s -X POST http://localhost:8270/graphql -H 'Content-Type: application/js
   "errors": [
     {
       "message": "'' exceeds maximum operation depth of 12",
+      "locations": [
+        {
+          "line": 1,
+          "column": 200
+        }
+      ],
       "extensions": {
         "code": "GRAPHQL_VALIDATION_FAILED"
       }
