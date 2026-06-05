@@ -20,6 +20,14 @@
     "eslint": "8.16.0",
     "jest": "29.7.0"
   },
+  "resolutions": {
+    "@casl/ability": "6.8.1",
+    "axios": "1.20.0",
+    "tar": "7.5.22",
+    "**/@strapi/cloud-cli/minimatch": "9.0.9",
+    "**/@strapi/data-transfer/ws": "8.22.0",
+    "**/@strapi/pack-up/vite": "5.4.21"
+  },
   "dependencies": {
     "@strapi/plugin-graphql": "4.26.2",
     "@strapi/plugin-i18n": "4.26.2",
