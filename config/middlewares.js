@@ -10,6 +10,15 @@
  * declines to cache.
  */
 
+/**
+ * Strapi 4.26's CORS middleware treats an array as an exact allow-list, so `['*']`
+ * matches no real origin. A wildcard is therefore passed as the string `'*'`.
+ *
+ * @param {string[]} origins parsed `CORS_ORIGIN`
+ * @returns {string|string[]}
+ */
+const corsOrigin = (origins) => (origins.includes('*') ? '*' : origins);
+
 module.exports = ({ env }) => [
   'strapi::errors',
   {
@@ -26,7 +35,7 @@ module.exports = ({ env }) => [
     config: {
       // A comma-separated allow-list; defaults to `*` so a fresh clone works, which
       // is also why the README tells you to set it before deploying.
-      origin: env.array('CORS_ORIGIN', ['*']),
+      origin: corsOrigin(env.array('CORS_ORIGIN', ['*'])),
     },
   },
   'strapi::poweredBy',

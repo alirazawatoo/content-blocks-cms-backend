@@ -174,7 +174,9 @@ describe('config/middlewares', () => {
         (entry) => typeof entry !== 'string' && entry.name === 'strapi::cors'
       ).config;
 
-    expect(cors(makeEnv()).origin).toEqual(['*']);
+    // A string, not ['*']: Strapi matches arrays exactly, so ['*'] admits nobody.
+    expect(cors(makeEnv()).origin).toBe('*');
+    expect(cors(makeEnv({ CORS_ORIGIN: '*' })).origin).toBe('*');
     expect(
       cors(makeEnv({ CORS_ORIGIN: 'https://jomi.com, https://www.jomi.com' }))
         .origin
