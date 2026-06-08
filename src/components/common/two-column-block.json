@@ -1,0 +1,39 @@
+{
+  "collectionName": "components_common_two_column_blocks",
+  "info": {
+    "displayName": "Two-Column Block",
+    "icon": "address-card"
+  },
+  "options": {},
+  "attributes": {
+    "TitleText": {
+      "type": "string"
+    },
+    "Description": {
+      "type": "text"
+    },
+    "ButtonText": {
+      "type": "string"
+    },
+    "ButtonUrl": {
+      "type": "string"
+    },
+    "ImagePosition": {
+      "type": "enumeration",
+      "enum": [
+        "Left",
+        "Right"
+      ]
+    },
+    "Image": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": false
+    }
+  }
+}

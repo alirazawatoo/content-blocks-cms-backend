@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_common_carousels",
+  "info": {
+    "displayName": "Carousel",
+    "icon": "angle-right"
+  },
+  "options": {},
+  "attributes": {
+    "Item": {
+      "type": "component",
+      "repeatable": true,
+      "component": "common.two-column-block"
+    }
+  }
+}
